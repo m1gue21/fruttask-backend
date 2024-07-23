@@ -1,4 +1,4 @@
-import { Column, DeleteDateColumn, Entity, JoinColumn, ManyToOne } from 'typeorm';
+import { Column, CreateDateColumn, DeleteDateColumn, Entity, JoinColumn, ManyToOne } from 'typeorm';
 import { User } from '../../users/entities/user.entity';
 
 @Entity()
@@ -12,15 +12,15 @@ export class Task {
 
   @Column()
   description: string;
-
-  @Column()
-  subtitle: string
   
   @Column()
   status: string
 
   @DeleteDateColumn()
   deletedAt: Date;
+
+  @CreateDateColumn()
+  createdAt: Date
 
   @ManyToOne(() => User)
   @JoinColumn({ name: 'userEmail', referencedColumnName: 'email',  })

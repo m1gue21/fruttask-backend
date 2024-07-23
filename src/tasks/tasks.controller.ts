@@ -6,6 +6,7 @@ import {
   Param,
   Patch,
   Post,
+  Query,
 } from '@nestjs/common';
 import { Auth } from 'src/auth/decorators/auth.decorator';
 import { ActiveUser } from 'src/common/decorators/active-user.decorator';
@@ -34,6 +35,12 @@ export class TasksController {
   findOne(@Param('id') id: number, @ActiveUser() user: UserActiveInterface) {
     return this.tasksService.findOne(id, user);
   }
+
+  @Get('by-status/:status')
+findByStatus(@Param('status') status: string, @ActiveUser() user: UserActiveInterface) {
+    return this.tasksService.findByStatus(status, user);
+}
+
 
   @Patch(':id')
   update(@Param('id') id: number, @Body() updateTaskDto: UpdateTaskDto, @ActiveUser() user: UserActiveInterface) {

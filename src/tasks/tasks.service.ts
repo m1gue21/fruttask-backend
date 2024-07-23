@@ -39,6 +39,22 @@ export class TasksService {
     return task;
   }
 
+  async findByStatus(status: string, user: UserActiveInterface) {
+    // Los administradores pueden ver todas las tareas con el estado dado
+    if (user.role === Role.ADMIN) {
+      return await this.taskRepository.find({
+        where: { status: status },
+      });
+    }
+    // Los usuarios regulares solo pueden ver sus propias tareas con el estado dado
+    return await this.taskRepository.find({
+      where: {
+        status: status,
+        userEmail: user.email,
+      },
+    });
+  }
+
   async update(id: number, updateTaskDto: UpdateTaskDto, user: UserActiveInterface) {
     await this.findOne(id, user );
     return await this.taskRepository.update(id, {
