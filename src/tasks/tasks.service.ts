@@ -33,7 +33,7 @@ export class TasksService {
   async findOne(id: number, user: UserActiveInterface) {
     const task = await this.taskRepository.findOneBy({ id });
     if (!task) {
-      throw new BadRequestException('Cat not found');
+      throw new BadRequestException('task not found');
     }
     this.validateOwnership(task, user);
     return task;

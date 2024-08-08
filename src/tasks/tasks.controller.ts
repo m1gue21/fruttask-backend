@@ -37,7 +37,7 @@ export class TasksController {
   }
 
   @Get('by-status/:status')
-findByStatus(@Param('status') status: string, @ActiveUser() user: UserActiveInterface) {
+  findByStatus(@Param('status') status: string, @ActiveUser() user: UserActiveInterface) {
     return this.tasksService.findByStatus(status, user);
 }
 
